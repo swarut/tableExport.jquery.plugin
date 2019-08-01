@@ -170,7 +170,7 @@
       defaults.mso.onMsoNumberFormat = defaults.onMsoNumberFormat;
     if (typeof defaults.worksheetName !== 'undefined' && defaults.mso.worksheetName === 'undefined')
       defaults.mso.worksheetName = defaults.worksheetName;
-
+    console.log("tableExpor.js - defaults", defaults)
     // Check values of some options
     defaults.mso.pageOrientation = (defaults.mso.pageOrientation.substr(0, 1) === 'l') ? 'landscape' : 'portrait';
 
@@ -260,11 +260,11 @@
         return;
       }
 
-      saveToFile ( csvData, 
-                   defaults.fileName + '.' + defaults.type, 
-                   "text/" + (defaults.type === 'csv' ? 'csv' : 'plain'), 
-                   "utf-8", 
-                   "", 
+      saveToFile ( csvData,
+                   defaults.fileName + '.' + defaults.type,
+                   "text/" + (defaults.type === 'csv' ? 'csv' : 'plain'),
+                   "utf-8",
+                   "",
                    (defaults.type === 'csv' && defaults.csvUseBOM) );
 
     } else if ( defaults.type === 'sql' ) {
@@ -645,9 +645,9 @@
       // add worksheet to workbook
       var wbout = XLSX.write(workbook, {type: 'binary', bookType: defaults.mso.fileFormat, bookSST: false});
 
-      saveToFile ( jx_s2ab(wbout), 
-                   defaults.fileName + '.' + defaults.mso.fileFormat, 
-                   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+      saveToFile ( jx_s2ab(wbout),
+                   defaults.fileName + '.' + defaults.mso.fileFormat,
+                   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                    "UTF-8", "", false );
     }
     else if ( defaults.type === 'excel' || defaults.type === 'xls' || defaults.type === 'word' || defaults.type === 'doc' ) {
@@ -2167,10 +2167,10 @@
             defaults.onAfterSaveToFile(data, fileName);
         }
         catch (e) {
-          downloadFile (fileName, 
-                        'data:' + type + 
+          downloadFile (fileName,
+                        'data:' + type +
                         (charset.length ? ';charset=' + charset : '') +
-                        (encoding.length ? ';' + encoding : '') + ',' + (bom ? '\ufeff' : ''), 
+                        (encoding.length ? ';' + encoding : '') + ',' + (bom ? '\ufeff' : ''),
                         data);
         }
       }
